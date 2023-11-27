@@ -60,3 +60,8 @@ socket.on("student-sent", data => {
   displayEntries()
   listenForQueueExpiry()
 })
+
+socket.on("signed-out", data => {
+  present = data
+  displayEntries()
+})

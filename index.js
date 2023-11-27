@@ -57,7 +57,11 @@ io.on("connection", socket => {
   socket.on("sign-out-student", username => {
     const id = getStudents().find(student => student.username === username).id
     const isPresent = getEntries().filter(entry => entry.id === id).splice(-1)[0]?.signedIn
-    const studentEntries = getQueue().filter(e => e.id === id)
+    if (isPresent) {
+      writeEntry({id, unix: new Date().getTime(), signedIn: false})
+      const present = getPresent()
+      io.emit("signed-out", present)
+    }
   })
 })
 
