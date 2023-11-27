@@ -35,10 +35,6 @@ io.on("connection", socket => {
     if (signedIn === undefined) signedIn = false
     writeEntry({id, unix: new Date().getTime(), signedIn: !signedIn})
     deleteQueue(id)
-
-    const username = students.find(student => student.id === id).username
-    const hasImg = fs.existsSync(path.join(__dirname, "public/imgs", `${username}.jpeg`))
-    socket.emit("show-scanned", {hasImg, username})
     
     const queued = getQueuedStudents()
     const present = getPresent()
@@ -56,6 +52,12 @@ io.on("connection", socket => {
     }
     const queue = getQueuedStudents()
     io.emit("student-sent", queue)
+  })
+
+  socket.on("sign-out-student", username => {
+    const id = getStudents().find(student => student.username === username).id
+    const isPresent = getEntries().filter(entry => entry.id === id).splice(-1)[0]?.signedIn
+    const studentEntries = getQueue().filter(e => e.id === id)
   })
 })
 

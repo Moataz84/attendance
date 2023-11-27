@@ -14,18 +14,6 @@ window.addEventListener("keydown", e => {
     if (difference < 230 && keysLength) {      
       const id = keys.toString().replace(/,/g, "")
       socket.emit("signed-in", parseInt(id))
-      socket.on("show-scanned", data => {
-        clearTimeout(timeout)
-        previewImage.src = ""
-        previewImage.style.display = "none"
-        const { hasImg, username } = data
-        previewImage.src = `imgs/${hasImg? username : "noimg"}.jpeg`
-        previewImage.style.display = "block"
-        timeout = setTimeout(() => {
-          previewImage.src = ""
-          previewImage.style.display = "none"
-        }, 2500)
-      })
       startTime = difference = null
       keys = []
     }

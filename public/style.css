@@ -30,7 +30,7 @@ nav {
   width: 70%;
   height: 70px;
   display: grid;
-  grid-template-columns: repeat(4, auto) 1fr;
+  grid-template-columns: repeat(3, auto) 1fr;
   justify-content: start;
   align-items: center;
   gap: 20px;
@@ -159,7 +159,7 @@ nav a:last-of-type {
   border-radius: 50%;
   position: absolute;
   right: -5px;
-  bottom: 40px;
+  bottom: 25px;
 }
 
 .student .active.green {

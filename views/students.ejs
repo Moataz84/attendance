@@ -11,7 +11,7 @@
     <%- include("partials/menu.ejs") %>
     <div class="content">
       <input type="text" id="student-name">
-      <button onclick="searchStudents(event)">Serach</button>
+      <button onclick="searchStudents(event)">Search</button>
       <div class="students" style="margin-top: 30px;">
         <% for (const student of students) { %>
           <div class="student">
@@ -31,5 +31,6 @@
   <script src="/socket.io/socket.io.js"></script>
   <script src="js/main.js"></script>
   <script src="js/students.js"></script>
+  <script src="js/scan.js"></script>
 </body>
 </html>

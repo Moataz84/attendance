@@ -17,7 +17,12 @@
           <img src="../imgs/noimg.jpeg">
         <% } %>
         <p><%=student.first%> <%=student.last%></p>
-        <button onclick="sendStudent(event)">Send Student</button>
+        <% if (!isSignedIn && !isQueued) { %> 
+          <button onclick="sendStudent(event)">Send Student</button>
+        <% } %>
+        <% if (isSignedIn) { %> 
+          <button onclick="signOutStudent(event)">Signout Student</button>
+        <% } %>
       </div>
 
       <div class="history">
@@ -30,5 +35,6 @@
   </div>
   <script src="/socket.io/socket.io.js"></script>
   <script src="../js/main.js"></script>
+  <script src="../js/scan.js"></script>
 </body>
 </html>

@@ -5,7 +5,7 @@ const path = require("path")
 const { validateJWT, checkLoggedIn } = require("../utils/middleware")
 const getPresent = require("../utils/getPresent")
 const getQueuedStudents = require("../utils/getQueue")
-const { getEntries, getStudents } = require("../utils/db")
+const { getEntries, getStudents, getQueue } = require("../utils/db")
 
 function getTimeRange(unix = new Date()) {
   const min = new Date(unix)
@@ -70,11 +70,17 @@ router.get("/students", (req, res) => {
 router.get("/students/:username", (req, res) => {
   const student = getStudents().find(student => student.username === req.params.username)
   if (!student) return res.sendStatus(404)
-  const hasImg = fs.existsSync(path.join(__dirname, "../public/imgs", `${student.username}.jpeg`))
-  const entries = getEntries().filter(entry => entry.id === student.id).sort((a, b) => b.unix - a.unix)
-  res.render("student", {entries, student: {...student, hasImg}, loggedIn: checkLoggedIn})
-})
+  const entries = getEntries()
+  let isSignedIn = entries.filter(e => e.id === student.id).slice(-1)[0]?.signedIn
+  if (!isSignedIn) isSignedIn = false
 
-router.get("/scan", validateJWT, (req, res) => res.render("scan"))
+  let isQueued = getQueue().filter(e => (e.id === student.id) && (e.unix + 600000) > new Date().getTime()).slice(-1)[0]
+  if (isQueued) isQueued = true
+  if (!isQueued) isQueued = false
+  
+  const hasImg = fs.existsSync(path.join(__dirname, "../public/imgs", `${student.username}.jpeg`))
+  const studentEntries = entries.filter(entry => entry.id === student.id).sort((a, b) => b.unix - a.unix)
+  res.render("student", {entries: studentEntries, student: {...student, hasImg}, loggedIn: checkLoggedIn, isSignedIn, isQueued})
+})
 
 module.exports = router
