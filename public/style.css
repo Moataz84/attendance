@@ -1,0 +1,203 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  font-family: 'Open Sans', sans-serif;
+}
+
+.container {
+  width: 100%;
+  min-height: 100vh;
+  background-color: #f1f1f1;
+  display: flex;
+  flex-direction: column;
+}
+
+.content {
+  width: calc(100% - 80px);
+  padding: 40px;
+}
+
+.content.auth {
+  min-height: calc(100vh - 80px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+nav {
+  width: 70%;
+  height: 70px;
+  display: grid;
+  grid-template-columns: repeat(4, auto) 1fr;
+  justify-content: start;
+  align-items: center;
+  gap: 20px;
+  background-color: #000;
+  padding: 0 15%;
+}
+
+nav a {
+  text-decoration: none;
+  color: #fff;
+}
+
+nav a:last-of-type {
+  justify-self: end;
+}
+
+.login {
+  width: 300px;
+  background-color: #fefefe;
+  border: solid 1px #cdcdcd;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+  padding: 20px 20px;
+  position: relative;
+  overflow: hidden;
+}
+
+.loading {
+  width: 100%;
+  height: 7px;
+  background-color: #1a73e8;
+  position: absolute;
+  top: 0;
+  left: -100%;
+  animation: loading 2s linear infinite;
+  display: none;
+}
+
+@keyframes loading {
+  100% {
+    left: 100%;
+  }
+}
+
+.login h2 {
+  align-self: center;
+}
+
+.login .input-container, .change-password .input-container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.login input {
+  padding: 10px 7px;
+  border: none;
+  outline: 1px solid #ccc;
+  font-size: 16px;
+}
+
+.password {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  outline: 1px solid #ccc;
+  padding-right: 10px;
+}
+
+.password input {
+  outline: none;
+  flex: 1;
+  padding-right: 0;
+}
+
+.password svg {
+  width: 22px;
+  height: 22px;
+  cursor: pointer;
+  fill: #808080;
+}
+
+.login > button, .change-password > button, .post-form > button {
+  width: fit-content;
+  border: 0;
+  border-radius: 3px;
+  background-color: #1a73e8;
+  color: #fff;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  padding: 10px 20px;
+  align-self: flex-end;
+}
+
+.login > button:hover, .change-password > button:hover, .post-form > button:hover {
+  background-color: #075cca;
+}
+
+.login .msg, .post-form .msg, .change-password .msg {
+  font-size: 14px;
+  color: #8c0c0c;
+  height: 22px;
+}
+
+.login .msg {
+  margin-top: -10px;
+}
+
+.students {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.student {
+  width: 130px;
+  position: relative;
+}
+
+.student .active {
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  position: absolute;
+  right: -5px;
+  bottom: 40px;
+}
+
+.student .active.green {
+  background-color: green;
+}
+
+.student .active.yellow {
+  background-color: yellow;
+}
+
+.student img {
+  width: 100%;
+}
+
+.student p {
+  word-wrap: break-word;
+}
+
+.student .cover {
+  position: absolute;
+  width: 100%;
+  height: 195px;
+  background-color: #000;
+  opacity: 0.9;
+  display: block;
+}
+
+.student.present > .cover{
+  display: none;
+}
+
+.preview-image {
+  width: 200px;
+  animation: fade 1s ease-in;
+  display: none;
+}
+
+@keyframes fade {
+  0% {opacity: 0;}
+  100% {opacity: 1;}
+}

@@ -1,0 +1,6 @@
+node_modules/
+JSON/
+public/imgs/*
+!public/imgs/noimg.jpeg
+.env
+test.js

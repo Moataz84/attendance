@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="style.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard</title>
+</head>
+<body>
+  <div class="container">
+    <%- include("partials/menu.ejs") %>
+    <div class="content">
+      <input type="date" id="date">
+      <input type="text" id="student-name">
+      <button onclick="search(event)">Serach</button>
+    
+      <% if (students.length) { %> 
+        <div class="students" style="margin-top: 30px;">
+          <% for (const student of students) { %>
+            <div class="student">
+              <a href="/students/<%=student.username%>">
+                <% if (student.hasImg) { %> 
+                  <img src="imgs/<%=student.username%>.jpeg">
+                <% } else { %>
+                  <img src="imgs/noimg.jpeg">
+                <% } %>
+              </a>
+              <p><%= student.first %> <%= student.last %></p>
+              <b><%= student.signedIn? "Sign In" : "Sign Out" %></b>
+              <p><%= new Date(student.unix).toLocaleString() %></p>
+            </div>
+          <% } %>
+        </div>
+      <% } else { %>
+        <br>
+        <br>
+        <h3>No entries today</h3>
+      <% } %>
+    </div>
+  </div>
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="js/main.js"></script>
+  <script src="js/dashboard.js"></script>
+</body>
+</html>

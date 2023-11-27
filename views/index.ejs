@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="style.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>View Signed In</title>
+</head>
+<body>
+  <div class="container">
+    <%- include("partials/menu.ejs") %>
+    <div class="content">
+      <div class="students" data-queued="<%= queued %>" data-present="<%= present %>">
+        <% for (const student of students) { %>
+          <div class="student present">
+            <a href="/students/<%=student.username%>">
+              <% if (student.hasImg) { %> 
+                <img src="imgs/<%=student.username%>.jpeg">
+              <% } else { %>
+                <img src="imgs/noimg.jpeg">
+              <% } %>
+            </a>
+            <% if (student.isPresent) { %> 
+              <div class="active green"></div>
+            <% } else { %>
+              <div class="active yellow"></div>
+            <% } %>
+            <p onclick="showHistory(event)" data-history="[<%=student.history%>]"><%= student.first %> <%= student.last %></p>
+          </div>
+        <% } %>
+      </div>
+    </div>
+  </div>
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="js/main.js"></script>
+  <script src="js/view.js"></script>
+</body>
+</html>
