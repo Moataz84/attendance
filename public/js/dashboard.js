@@ -7,7 +7,7 @@ const nameInput = document.querySelector("#student-name")
 
 let date = new Date().toLocaleDateString()
 if (dateQuery && !isNaN(new Date(dateQuery))) {
-  date = new Date(`${dateQuery}T0${new Date().getTimezoneOffset() / 60}:00:00.000Z`).toLocaleDateString()
+  date = new Date(new Date(dateQuery).getTime() + new Date().getTimezoneOffset() * 60000).toLocaleDateString()
 }
 dateInput.valueAsDate = new Date(date)
 
